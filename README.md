@@ -38,13 +38,16 @@ Parent process wajib menunggu child dengan wait, kemudian menampilkan ke layar s
 Struktur repository:
 
 ```
-.
-..
+.Sisop-FP-2025-IT-B09
+..main.c
+..main
+..assets
+...demo1.mp4
 ```
 
 ## Pengerjaan
 
-> Insert poin soal...
+> Program membuat satu child process menggunakan fork()
 
 **Teori**
 
@@ -55,6 +58,14 @@ Berdasarkan Dokumentasi Linux, `fork()` membuat proses baru (dinamakan child) ya
 Contoh: Kamu sedang menjalankan satu program (misalnya ./fpsisop). Ini disebut _parent process_. Ketika `fork()` dipanggil, Sistem akan membuat duplikat dari proses itu, seperti memfotokopi. Hasil Fotokopiannya disebut child process.
 
 > "fork() creates a new process by duplicating the calling process. The new process, referred to as the child..." [1]
+
+**Solusi**
+
+aa
+
+> Parent wajib menunggu child selesai menggunakan wait()
+
+**Teori**
 
 2. `wait()` dan `waitpid()` — Menunggu Proses Anak.
 
@@ -70,6 +81,12 @@ Setelah `wait()`, status child menjadi :
 - `WIFEXITED(status)` → true jika child keluar dengan normal (`exit()`).
 - `WIFSIGNALED(status)` → true kalau child mati karena sinyal (SIGSEGV, SIGKILL, dll).
 
+**Solusi**
+
+> Tampilkan ke layar status keluar child (exit code atau sinyal)
+
+**Teori**
+
 3. Makro Status: WIFEXITED, WEXITSTATUS, WIFSIGNALED, WTERMSIG
 
 - `WIFEXITED(status)` → true jika child keluar normal
@@ -77,7 +94,13 @@ Setelah `wait()`, status child menjadi :
 - `WIFSIGNALED(status)` → true jika child selesai karena sinyal
 - `WTERMSIG(status)` → mengambil nomor sinyal penyebab terminasi
 
+**Solusi**
+
 > Sumber [2]
+
+> Jalankan dua skenario: (1) child keluar dengan exit() dan (2) keluar karena sinyal (SIGSEGV)
+
+**Teori**
 
 4. Sinyal & `SIGSEGV`.
 
