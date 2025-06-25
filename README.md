@@ -46,27 +46,46 @@ Struktur repository:
 
 **Teori**
 
-...
+1. `fork()` — Membuat Proses Anak
+Berdasarkan Dokumentasi Linux, `fork()` membuat proses baru (dinamakan child) yang merupakan duplikat dari proses pemanggil (parent), dengan ruang memori dan descriptor file tersendiri.
+
+Contoh: Kamu sedang menjalankan satu program (misalnya ./fpsisop). Ini disebut *parent process*. Ketika `fork()` dipanggil, Sistem akan membuat duplikat dari proses itu, seperti memfotokopi. Hasil Fotokopiannya disebut child process.
+
+> "fork() creates a new process by duplicating the calling process. The new process, referred to as the child..." [1]
+
+2. `wait()` dan `waitpid()` — Menunggu Proses Anak
+`wait()` adalah fungsi yang digunakan parent process untuk menunda eksekusi parent sampai child berakhir, lalu mengisi status ke variabel integer yang bisa diperiksa menggunakan makro tertentu
+```
+int status;
+wait(&status);
+```
+Setelah `wait()`, status child menjadi :
+- `WIFEXITED(status)` → true jika child keluar dengan normal (`exit()`).
+- `WIFSIGNALED(status)` → true kalau child mati karena sinyal (SIGSEGV, SIGKILL, dll).
+
+3. Makro Status: WIFEXITED, WEXITSTATUS, WIFSIGNALED, WTERMSIG
+`WIFEXITED(status)` → true jika child keluar normal 
+`WEXITSTATUS(status)` → mengambil nilai exit code (hanya jika WIFEXITED true) 
+`WIFSIGNALED(status)` → true jika child selesai karena sinyal 
+`WTERMSIG(status)` → mengambil nomor sinyal penyebab terminasi 
+
+> Sumber [2]
+
+4. Sinyal & `SIGSEGV`
+`SIGSEGV` (Segmentation Fault) adalah sinyal (signal) yang dikirim ke proses saat dia mengakses memori yang tidak seharusnya dia akses (illegal). Biasa dikenal segmentation fault. Dalam kode, bisa dipicu manual dengan `raise(SIGSEGV)`
+Contoh:
+Kamu mencoba akses alamat memori kosong atau menulis ke alamat 0, sistem akan menghentikan prosesmu.
+`raise(SIGSEGV)` secara manual mengirim sinyal segfault ke diri sendiri.
+Tujuannya (di tugas ini) untuk mensimulasikan child process yang mati karena kesalahan serius (bukan karena `exit()` biasa).
 
 **Solusi**
 
-...
 
-> Insert poin soal...
-
-**Teori**
-
-...
-
-**Solusi**
-
-...
 
 **Video Menjalankan Program**
 ...
 
 ## Daftar Pustaka
 
-Sitasi 1
-Sitasi 2
-Sitasi 3
+[1] Linux Manual Page for fork(): https://linux.die.net/man/2/fork  
+[2] The Open Group Base Specifications Issue 7, IEEE Std 1003.1: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wait.html
