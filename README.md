@@ -1,6 +1,7 @@
 # Final Project Sistem Operasi IT
 
 ## Peraturan
+
 1. Waktu pengerjaan dimulai hari Kamis (19 Juni 2025) setelah soal dibagikan hingga hari Rabu (25 Juni 2025) pukul 23.59 WIB.
 2. Praktikan diharapkan membuat laporan penjelasan dan penyelesaian soal dalam bentuk Readme(github).
 3. Format nama repository github “Sisop-FP-2025-IT-[Kelas][Kelompok]” (contoh:Sisop-FP-2025-IT-A01).
@@ -14,12 +15,12 @@
 
 ## Kelompok 9
 
-Nama | NRP
---- | ---
-Paundra Pujo Darmawan | 5027241008
-Abiyyu Raihan Putra Wikanto | 5027241042
-Gemilang Ananda Lingua | 5027241072
-Imam Mahmud Dalil Fauzan | 5027241100
+| Nama                        | NRP        |
+| --------------------------- | ---------- |
+| Paundra Pujo Darmawan       | 5027241008 |
+| Abiyyu Raihan Putra Wikanto | 5027241042 |
+| Gemilang Ananda Lingua      | 5027241072 |
+| Imam Mahmud Dalil Fauzan    | 5027241100 |
 
 ## Deskripsi Soal
 
@@ -35,6 +36,7 @@ Parent process wajib menunggu child dengan wait, kemudian menampilkan ke layar s
 > Insert catatan dari pengerjaan kalian... (contoh dibawah) // hapus line ini
 
 Struktur repository:
+
 ```
 .
 ..
@@ -50,27 +52,30 @@ Struktur repository:
 
 Berdasarkan Dokumentasi Linux, `fork()` membuat proses baru (dinamakan child) yang merupakan duplikat dari proses pemanggil (parent), dengan ruang memori dan descriptor file tersendiri.
 
-Contoh: Kamu sedang menjalankan satu program (misalnya ./fpsisop). Ini disebut *parent process*. Ketika `fork()` dipanggil, Sistem akan membuat duplikat dari proses itu, seperti memfotokopi. Hasil Fotokopiannya disebut child process.
+Contoh: Kamu sedang menjalankan satu program (misalnya ./fpsisop). Ini disebut _parent process_. Ketika `fork()` dipanggil, Sistem akan membuat duplikat dari proses itu, seperti memfotokopi. Hasil Fotokopiannya disebut child process.
 
 > "fork() creates a new process by duplicating the calling process. The new process, referred to as the child..." [1]
 
 2. `wait()` dan `waitpid()` — Menunggu Proses Anak.
 
 `wait()` adalah fungsi yang digunakan parent process untuk menunda eksekusi parent sampai child berakhir, lalu mengisi status ke variabel integer yang bisa diperiksa menggunakan makro tertentu
+
 ```
 int status;
 wait(&status);
 ```
+
 Setelah `wait()`, status child menjadi :
+
 - `WIFEXITED(status)` → true jika child keluar dengan normal (`exit()`).
 - `WIFSIGNALED(status)` → true kalau child mati karena sinyal (SIGSEGV, SIGKILL, dll).
 
 3. Makro Status: WIFEXITED, WEXITSTATUS, WIFSIGNALED, WTERMSIG
 
-- `WIFEXITED(status)` → true jika child keluar normal 
-- `WEXITSTATUS(status)` → mengambil nilai exit code (hanya jika WIFEXITED true) 
-- `WIFSIGNALED(status)` → true jika child selesai karena sinyal 
-- `WTERMSIG(status)` → mengambil nomor sinyal penyebab terminasi 
+- `WIFEXITED(status)` → true jika child keluar normal
+- `WEXITSTATUS(status)` → mengambil nilai exit code (hanya jika WIFEXITED true)
+- `WIFSIGNALED(status)` → true jika child selesai karena sinyal
+- `WTERMSIG(status)` → mengambil nomor sinyal penyebab terminasi
 
 > Sumber [2]
 
@@ -86,10 +91,9 @@ Tujuannya (di tugas ini) untuk mensimulasikan child process yang mati karena kes
 
 **Solusi**
 
-
-
 **Video Menjalankan Program**
-...
+
+[video](assets/demo1.mp4)
 
 ## Daftar Pustaka
 
