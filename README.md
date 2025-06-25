@@ -47,7 +47,7 @@ Struktur repository:
 
 ## Pengerjaan
 
-> Program membuat satu child process menggunakan fork()
+> Poin Soal = Program membuat satu child process menggunakan fork()
 
 **Teori**
 
@@ -75,7 +75,7 @@ Kemudian proses dibedakan:
 > perror("fork"); // jika fork gagal
 > }
 
-> Parent wajib menunggu child selesai menggunakan wait()
+> Poin Soal = Parent wajib menunggu child selesai menggunakan wait()
 
 **Teori**
 
@@ -105,7 +105,7 @@ Setelah itu, parent memeriksa status dengan logika kondisional:
 > if (WIFEXITED(status)) { ... }
 > else if (WIFSIGNALED(status)) { ... }
 
-> Tampilkan ke layar status keluar child (exit code atau sinyal)
+> Poin Soal = Tampilkan ke layar status keluar child (exit code atau sinyal)
 
 **Teori**
 
@@ -130,7 +130,7 @@ atau:
 
 Semua output disusun agar skenario 1 dan 2 mudah dibaca dan dibedakan.
 
-> Jalankan dua skenario: (1) child keluar dengan exit() dan (2) keluar karena sinyal (SIGSEGV)
+> Poin Soal = Jalankan dua skenario: (1) child keluar dengan exit() dan (2) keluar karena sinyal (SIGSEGV)
 
 **Teori**
 
