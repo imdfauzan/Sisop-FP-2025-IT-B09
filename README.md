@@ -38,11 +38,11 @@ Parent process wajib menunggu child dengan wait, kemudian menampilkan ke layar s
 Struktur repository:
 
 ```
-.Sisop-FP-2025-IT-B09
-..main.c
-..main
-..assets
-...demo1.mp4
+assets
+└── demo1.mp4
+main.c
+main
+README.md
 ```
 
 ## Pengerjaan
