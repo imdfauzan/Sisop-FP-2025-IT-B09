@@ -93,7 +93,8 @@ Tujuannya (di tugas ini) untuk mensimulasikan child process yang mati karena kes
 
 **Video Menjalankan Program**
 
-[video](assets/demo1.mp4)
+[Video Demo](assets/demo1.mp4)
+
 
 ## Daftar Pustaka
 
