@@ -33,7 +33,7 @@ Parent process wajib menunggu child dengan wait, kemudian menampilkan ke layar s
 
 ### Catatan
 
-> Insert catatan dari pengerjaan kalian... (contoh dibawah) // hapus line ini
+> Soal ini dikerjakan menggunakan bahasa C di lingkungan Ubuntu Linux dalam VirtualBox, dengan fokus pada penggunaan `fork()`, `wait()`, dan analisis status keluar child process. Program dibagi menjadi dua skenario untuk menunjukkan perbedaan antara proses yang keluar secara normal dan yang dihentikan oleh sinyal. Pendekatan ini membantu memahami manajemen proses dasar dalam sistem operasi, terutama cara parent memantau dan membedakan hasil eksekusi child-nya.
 
 Struktur repository:
 
@@ -57,11 +57,23 @@ Berdasarkan Dokumentasi Linux, `fork()` membuat proses baru (dinamakan child) ya
 
 Contoh: Kamu sedang menjalankan satu program (misalnya ./fpsisop). Ini disebut _parent process_. Ketika `fork()` dipanggil, Sistem akan membuat duplikat dari proses itu, seperti memfotokopi. Hasil Fotokopiannya disebut child process.
 
-> "fork() creates a new process by duplicating the calling process. The new process, referred to as the child..." [1]
+"fork() creates a new process by duplicating the calling process. The new process, referred to as the child..." [1]
 
 **Solusi**
 
-aa
+Kode program memanggil fork() dalam dua fungsi utama:
+
+> pid_t pid = fork();
+
+Kemudian proses dibedakan:
+
+> if (pid == 0) {
+> // child process
+> } else if (pid > 0) {
+> // parent process
+> } else {
+> perror("fork"); // jika fork gagal
+> }
 
 > Parent wajib menunggu child selesai menggunakan wait()
 
@@ -83,6 +95,16 @@ Setelah `wait()`, status child menjadi :
 
 **Solusi**
 
+Kedua fungsi utama menunggu child menggunakan:
+
+> int status;
+> wait(&status);
+
+Setelah itu, parent memeriksa status dengan logika kondisional:
+
+> if (WIFEXITED(status)) { ... }
+> else if (WIFSIGNALED(status)) { ... }
+
 > Tampilkan ke layar status keluar child (exit code atau sinyal)
 
 **Teori**
@@ -94,15 +116,27 @@ Setelah `wait()`, status child menjadi :
 - `WIFSIGNALED(status)` → true jika child selesai karena sinyal
 - `WTERMSIG(status)` → mengambil nomor sinyal penyebab terminasi
 
+> Sumber [2]
+
 **Solusi**
 
-> Sumber [2]
+Output yang dihasilkan jelas membedakan:
+
+> [Parent] Child keluar normal dengan kode: 42
+
+atau:
+
+> [Parent] Child dihentikan oleh sinyal: 11 (Segmentation fault)
+
+Semua output disusun agar skenario 1 dan 2 mudah dibaca dan dibedakan.
 
 > Jalankan dua skenario: (1) child keluar dengan exit() dan (2) keluar karena sinyal (SIGSEGV)
 
 **Teori**
 
 4. Sinyal & `SIGSEGV`.
+
+Fungsi exit(kode) digunakan agar proses keluar dengan status tertentu. Ketika parent menunggu child, parent dapat mengetahui nilai kode ini melalui wait() dan makro WEXITSTATUS().
 
 `SIGSEGV` (Segmentation Fault) adalah sinyal (signal) yang dikirim ke proses saat dia mengakses memori yang tidak seharusnya dia akses (illegal). Biasa dikenal segmentation fault. Dalam kode, bisa dipicu manual dengan `raise(SIGSEGV)`.
 
@@ -113,6 +147,29 @@ Kamu mencoba akses alamat memori kosong atau menulis ke alamat 0, sistem akan me
 Tujuannya (di tugas ini) untuk mensimulasikan child process yang mati karena kesalahan serius (bukan karena `exit()` biasa).
 
 **Solusi**
+
+Skenario 1: child keluar dengan exit(42):
+
+> printf("[Child] Keluar normal dengan exit code 42.\n");
+> exit(42);
+
+Parent akan mendeteksi ini dengan:
+
+> if (WIFEXITED(status)) {
+> printf("[Parent] Child keluar normal dengan kode: %d\n", WEXITSTATUS(status));
+> }
+
+Skenario 2: child mati karena sinyal:
+
+> printf("[Child] Akan menyebabkan segfault (SIGSEGV)...\n");
+> raise(SIGSEGV);
+
+Parent akan mendeteksinya dengan:
+
+> if (WIFSIGNALED(status)) {
+> printf("[Parent] Child dihentikan oleh sinyal: %d (%s)\n",
+> WTERMSIG(status), strsignal(WTERMSIG(status)));
+> }
 
 **Video Menjalankan Program**
 
