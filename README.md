@@ -1,6 +1,6 @@
 # Final Project Sistem Operasi IT
 
-## Kelompok 9
+## Kelompok 3
 
 | Nama                        | NRP        |
 | --------------------------- | ---------- |
