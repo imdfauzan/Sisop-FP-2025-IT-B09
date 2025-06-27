@@ -9,6 +9,30 @@
 | Gemilang Ananda Lingua      | 5027241072 |
 | Imam Mahmud Dalil Fauzan    | 5027241100 |
 
+## Teori
+**Latar Belakang**
+
+Memahami status keluar proses dalam sistem operasi sangat penting untuk manajemen sistem yang efisien. Status keluar memberikan informasi tentang bagaimana sebuah proses berakhir, apakah berhasil atau gagal, dan apa penyebab kegagalannya. Informasi ini memungkinkan sistem operasi untuk melakukan tindakan yang tepat, seperti mengalokasikan kembali sumber daya, mencatat kesalahan, atau memulai ulang proses jika perlu. [4]
+
+Dalam Linux, fork() adalah sistem panggilan (system call) yang digunakan untuk membuat proses baru (proses anak) yang merupakan duplikat dari proses yang memanggilnya (proses induk). Sedangkan wait() adalah sistem panggilan atau perintah yang digunakan untuk membuat proses induk menunggu sampai proses anak selesai dieksekusi. [5]
+
+Status keluar proses (exit status) sangat penting dalam sistem operasi karena menyediakan informasi tentang bagaimana sebuah proses berakhir. Informasi ini digunakan oleh sistem operasi, program lain, dan pengguna untuk memahami apakah proses berhasil dijalankan, mengalami kesalahan, atau dihentikan secara tidak terduga. [6]
+
+Di Linux, proses induk (parent process) dan proses anak (child process) memiliki hubungan hierarki. Proses anak dibuat oleh proses induk melalui panggilan sistem fork(). Setelah fork(), sistem operasi menduplikasi proses induk, menghasilkan proses anak. Proses anak memiliki ID proses (PID) yang berbeda dari induknya dan berjalan secara independen, meskipun awalnya merupakan duplikat dari induknya. [6]
+
+Perbedaan utama antara keluar normal dan terminated by signal pada Linux terletak pada bagaimana proses dihentikan. Keluar normal terjadi ketika proses menyelesaikan tugasnya dan mengakhiri eksekusinya dengan kode keluar yang terdefinisi. Sebaliknya, terminated by signal terjadi ketika proses dihentikan secara paksa oleh sistem karena menerima sinyal tertentu, seperti SIGKILL atau SIGTERM. [7]
+
+**Rumusan Masalah**
+1. Bagaimana membedakan proses yang keluar normal dan proses yang keluar karena sinyal?
+
+**Tujuan**
+1. Membuat program yang mampu melacak status keluar proses anak.
+2. Menampilkan apakah proses keluar secara normal atau karena sinyal tertentu.
+
+**Manfaat**
+1. Memahami penggunaan fork(), wait(), exit(), dan manajemen sinyal di sistem operasi.
+2. Memberikan contoh konkret aplikasi pemrosesan sinyal di OS.
+
 ## Deskripsi Soal
 
 **Process Exit Status Tracker (9)**
@@ -176,3 +200,7 @@ WTERMSIG(status), strsignal(WTERMSIG(status)));
 1. [1] https://linux.die.net/man/2/fork
 2. [2] https://pubs.opengroup.org/onlinepubs/9699919799/functions/wait.html
 3. [3] https://man7.org/linux/man-pages/man2/wait.2.html
+4. [4] https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://siakad.uinsby.ac.id/akademik/siakad/index.php%3Fpage%3Ddownload%26type%3Dmateri%26id%3D6524%23:~:text%3DProses%2520yang%2520keluar%2520akan%2520diketahui,kembali%2520ke%2520posisi%2520not%2520running.&ved=2ahUKEwivjLeXiouOAxXUumMGHeJJNjkQ-tANegQICRAP&usg=AOvVaw0HtuLvhiLk2ittIrj0Z-Hv
+5. [5] https://www.researchgate.net/publication/324703613_Process_Creation_pada_Linux_menggunakan_System_Call_Fork
+6. [6] https://luchakamala.wordpress.com/2015/10/19/proses-dan-daemon/#:~:text=Fork%20Parent%20Processs%20dan%20Penghentian,2.
+7. [7] https://www-stackstate-com.translate.goog/blog/sigkill-vs-sigterm-a-developers-guide-to-process-termination/?_x_tr_sl=en&_x_tr_tl=id&_x_tr_hl=id&_x_tr_pto=sge
